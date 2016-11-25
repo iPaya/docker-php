@@ -1,0 +1,24 @@
+language: bash
+services: docker
+
+install:
+  - git clone https://github.com/iPaya/docker-php.git ~/docker-php
+
+script:
+  - docker build -t "ipaya/php-7.0:latest" ./php-7.0/
+
+after_script:
+  - docker images
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+      docker push ipaya/php-7.0:latest;
+    fi
+  - if [ "$TRAVIS_TAG" ]; then
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+      docker tag ipaya/php-7.0:latest ipaya/php-7.0:$TRAVIS_TAG;
+      docker push ipaya/php-7.0:$TRAVIS_TAG;
+    fi
+
+# vim:set et ts=2 sw=2:
