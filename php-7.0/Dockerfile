@@ -17,8 +17,10 @@ RUN apt-get install -y apache2 apache2-utils apache2-dev apache2-mpm-prefork && 
 
 ENV PHP_VERSION 7.0.12
 ENV PHP_HOME /opt/php
+ENV BIN_PATH /opt/bin
 
 RUN mkdir -p /opt/src/php && \
+    mkdir -p $BIN_PATH && \
     mkdir -p /etc/php/conf.d && \
     mkdir -p $PHP_HOME/php-$PHP_VERSION && \
     cd /opt/src/php && \
@@ -95,9 +97,14 @@ AddType application/x-httpd-php-source .phps \n\
 extension=phar.so \n\
 " > /etc/php/conf.d/20-phar.ini
 
-ENV PATH "$PATH:/opt/bin:$PHP_HOME/php-$PHP_VERSION/bin:$PHP_HOME/php-$PHP_VERSION/sbin"
+ENV PATH "$PATH:$BIN_PATH:$PHP_HOME/php-$PHP_VERSION/bin:$PHP_HOME/php-$PHP_VERSION/sbin"
 
 RUN mkdir -p /var/run/sshd /var/log/supervisor /var/lock/apache2 /var/run/apache2
+
+RUN cd $BIN_PATH && \
+    wget https://getcomposer.org/composer.phar && \
+    chmod +x composer.phar && \
+    mv composer.phar composer
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
