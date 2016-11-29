@@ -5,6 +5,8 @@ MAINTAINER Di Zhang <zhangdi_me@163.com>
 # Uncomment if you are in china.
 # ADD 163.sources.list /etc/apt/sources.list
 
+COPY config/php.ini /usr/local/etc/php/
+
 # Update apt-get sources
 RUN apt-get update 
 
