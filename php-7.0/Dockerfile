@@ -31,5 +31,8 @@ RUN curl -o composer https://getcomposer.org/composer.phar && \
   chmod +x composer && \
   mv composer /usr/local/bin/composer
 
+# Install git
+RUN apt-get install -y git
+
 # Clean up when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
