@@ -5,8 +5,8 @@ install:
   - git clone https://github.com/iPaya/docker-php.git ~/docker-php
 
 script:
-  - docker build -t "ipaya/php-7.0:cli" ./php-7.0/cli
-  - docker build -t "ipaya/php-7.0:apache" ./php-7.0/apache
+  - docker build -t "ipaya/php-7.0:cli" ./7.0/cli
+  - docker build -t "ipaya/php-7.0:apache" ./7.0/apache
 
 after_script:
   - docker images
