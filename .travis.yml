@@ -5,7 +5,8 @@ install:
   - git clone https://github.com/iPaya/docker-php.git ~/docker-php
 
 script:
-  - docker build -t "ipaya/php-7.0:latest" ./php-7.0/
+  - docker build -t "ipaya/php-7.0:cli" ./php-7.0/cli
+  - docker build -t "ipaya/php-7.0:apache" ./php-7.0/apache
 
 after_script:
   - docker images
@@ -13,7 +14,8 @@ after_script:
 after_success:
   - if [ "$TRAVIS_BRANCH" = "master" ]; then
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push ipaya/php-7.0:latest;
+      docker push ipaya/php-7.0:cli;
+      docker push ipaya/php-7.0:apache;
     fi
 
 # vim:set et ts=2 sw=2:
