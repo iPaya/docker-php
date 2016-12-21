@@ -28,6 +28,9 @@ RUN apt-get install -y libmagickwand-dev && \
   pecl install imagick && \
   docker-php-ext-enable imagick
 
+# Install php zip
+RUN docker-php-ext-install zip
+
 # Install PHP composer
 RUN curl -o composer https://getcomposer.org/composer.phar && \
   chmod +x composer && \
