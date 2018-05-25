@@ -37,12 +37,6 @@ RUN apt-get update \
   # Clean up when done.
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install php opcache
-RUN apt-get update \
-  && docker-php-ext-install opcache \
-  # Clean up when done.
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 # Install Swoole
 RUN apt-get update \
   && curl -fsSL 'https://github.com/swoole/swoole-src/archive/v1.9.2-stable.tar.gz' -o swoole-src-1.9.2-stable.tar.gz \
