@@ -37,4 +37,10 @@ RUN apt-get update \
   # Clean up when done.
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Install mysql
+RUN apt-get update \
+  && docker-php-ext-install mysql \
+  # Clean up when done.
+  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 RUN a2enmod rewrite
