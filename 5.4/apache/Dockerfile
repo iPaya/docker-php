@@ -37,17 +37,4 @@ RUN apt-get update \
   # Clean up when done.
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install Swoole
-RUN apt-get update \
-  && curl -fsSL 'https://github.com/swoole/swoole-src/archive/v1.9.2-stable.tar.gz' -o swoole-src-1.9.2-stable.tar.gz \
-  && mkdir -p /tmp/swoole \
-  && tar -xf swoole-src-1.9.2-stable.tar.gz -C /tmp/swoole --strip-components=1 \
-  && rm swoole-src-1.9.2-stable.tar.gz \
-  && docker-php-ext-configure /tmp/swoole \
-  && docker-php-ext-install /tmp/swoole \
-  && rm -r /tmp/swoole \
-  # Clean up when done.
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Install Swoole
 RUN a2enmod rewrite
