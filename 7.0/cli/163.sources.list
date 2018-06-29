@@ -1,2 +1,0 @@
-deb http://mirrors.163.com/debian/ stretch main non-free contrib
-deb http://mirrors.163.com/debian/ stretch-proposed-updates main non-free contrib
