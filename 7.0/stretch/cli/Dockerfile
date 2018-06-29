@@ -22,6 +22,5 @@ RUN apt-get update \
     && docker-php-ext-install zip \
     && docker-php-ext-install opcache \
     # 移除不需要的包
-    && apt-get remove -y zlib1g-dev libicu-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
     && apt-get autoremove -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
