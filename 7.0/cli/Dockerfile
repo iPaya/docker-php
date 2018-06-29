@@ -3,10 +3,9 @@ FROM php:7.0-cli
 MAINTAINER Di Zhang <zhangdi_me@163.com>
 LABEL maintainer="zhangdi_me@163.com"
 
-# Uncomment if you are in china.
-# ADD 163.sources.list /etc/apt/sources.list
-
-COPY php.ini /usr/local/etc/php/
+RUN echo "deb http://mirrors.163.com/debian/ stretch main non-free contrib\n\
+deb http://mirrors.163.com/debian/ stretch-proposed-updates main non-free contrib\n\
+" > /etc/apt/sources.list
 
 # Install intl
 RUN apt-get update \
@@ -39,17 +38,5 @@ RUN apt-get update \
 # Install php opcache
 RUN apt-get update \
   && docker-php-ext-install opcache \
-  # Clean up when done.
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Install Swoole
-RUN apt-get update \
-  && curl -fsSL 'https://github.com/swoole/swoole-src/archive/v1.9.2-stable.tar.gz' -o swoole-src-1.9.2-stable.tar.gz \
-  && mkdir -p /tmp/swoole \
-  && tar -xf swoole-src-1.9.2-stable.tar.gz -C /tmp/swoole --strip-components=1 \
-  && rm swoole-src-1.9.2-stable.tar.gz \
-  && docker-php-ext-configure /tmp/swoole \
-  && docker-php-ext-install /tmp/swoole \
-  && rm -r /tmp/swoole \
   # Clean up when done.
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

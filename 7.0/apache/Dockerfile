@@ -4,12 +4,9 @@ MAINTAINER Di Zhang <zhangdi_me@163.com>
 LABEL maintainer="zhangdi_me@163.com"
 ENV DOCUMENT_ROOT=/var/www/html
 
-# Uncomment if you are in china.
-# ADD 163.sources.list /etc/apt/sources.list
-
-COPY php.ini /usr/local/etc/php/
-
-COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+RUN echo "deb http://mirrors.163.com/debian/ stretch main non-free contrib\n\
+deb http://mirrors.163.com/debian/ stretch-proposed-updates main non-free contrib\n\
+" > /etc/apt/sources.list
 
 # Install intl
 RUN apt-get update \
@@ -45,17 +42,7 @@ RUN apt-get update \
   # Clean up when done.
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install Swoole
-RUN apt-get update \
-  && curl -fsSL 'https://github.com/swoole/swoole-src/archive/v1.9.2-stable.tar.gz' -o swoole-src-1.9.2-stable.tar.gz \
-  && mkdir -p /tmp/swoole \
-  && tar -xf swoole-src-1.9.2-stable.tar.gz -C /tmp/swoole --strip-components=1 \
-  && rm swoole-src-1.9.2-stable.tar.gz \
-  && docker-php-ext-configure /tmp/swoole \
-  && docker-php-ext-install /tmp/swoole \
-  && rm -r /tmp/swoole \
-  # Clean up when done.
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
-# Install Swoole
+# Enable rewrite module
 RUN a2enmod rewrite
