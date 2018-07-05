@@ -1,4 +1,4 @@
-FROM php:7.0-cli
+FROM php:7.1-cli
 
 MAINTAINER Di Zhang <zhangdi_me@163.com>
 LABEL maintainer="zhangdi_me@163.com"
