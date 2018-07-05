@@ -25,6 +25,10 @@ RUN apt-get update \
     && docker-php-ext-install opcache \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# 时区
+RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo 'Asia/Shanghai' > /etc/timezone
+
 # Enable rewrite module
 RUN a2enmod rewrite
 
