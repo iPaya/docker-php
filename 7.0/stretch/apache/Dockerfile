@@ -25,6 +25,11 @@ RUN apt-get update \
     && docker-php-ext-install opcache \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN cd /tmp/ \
+    && curl -o composer.phar https://getcomposer.org/download/1.6.5/composer.phar \
+    && chmod +x composer.phar \
+    && mv composer.phar /usr/local/bin/composer
+
 # 时区
 RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo 'Asia/Shanghai' > /etc/timezone
