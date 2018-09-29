@@ -22,6 +22,7 @@ RUN apt-get update \
     && docker-php-ext-install gd \
     && docker-php-ext-install zip \
     && docker-php-ext-install opcache \
+    && docker-php-ext-install bcmath \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN cd /tmp/ \
