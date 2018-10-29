@@ -15,6 +15,7 @@ RUN apt-get update \
     libjpeg62-turbo-dev \
     libpng-dev \
     libpcre3 libpcre3-dev \
+    libmcrypt-dev \
     && docker-php-ext-configure intl \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install intl \
@@ -23,6 +24,7 @@ RUN apt-get update \
     && docker-php-ext-install zip \
     && docker-php-ext-install opcache \
     && docker-php-ext-install bcmath \
+    && docker-php-ext-install mcrypt \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN cd /tmp/ \
